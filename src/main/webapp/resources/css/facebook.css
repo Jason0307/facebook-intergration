@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+.signin-facebook{
+	width:400px;
+	margin-bottom: 50px;
+}
+.fb-operations{
+	width:200px;
+}
+.fb-oper{
+	width:170px;
+	height:54px;
+	margin-bottom: 20px;
+}

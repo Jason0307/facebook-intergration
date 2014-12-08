@@ -1,0 +1,449 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html {
+    height: 988px;
+    background: url('http://thecodeplayer.com/uploads/media/gs.png');
+    background: linear-gradient(rgba(196, 102, 0, 0.2), rgba(155, 89, 182, 0.2)), url('http://thecodeplayer.com/uploads/media/gs.png');
+}
+body {
+    font-family: montserrat, arial, verdana;
+}
+/*form styles*/
+
+#msform {
+    width: 641px;
+    height: 948px;
+    margin: 10px auto;
+    text-align: center;
+    position: relative;
+    background: url('../images/background.jpg');
+    opacity: 0.9;
+}
+#msform fieldset {
+    height: 800px;
+    width: 85%;
+    border: 0 none;
+    border-radius: 3px;
+    /*padding: 70px 0px;*/
+    
+    box-sizing: border-box;
+    margin: 90px 8% 0 8%;
+    /*stacking fieldsets above each other*/
+    
+    position: absolute;
+}
+/*Hide all except first fieldset*/
+
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+/*inputs*/
+/*controls*/
+
+#msform .input {
+    margin-top: 100px;
+}
+#msform .step_button {} #msform input, #msform textarea {
+    font-family: LatoLight;
+    height: 75px;
+    padding: 15px 15px 15px 25px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    margin-bottom: 25px;
+    width: 92%;
+    box-sizing: border-box;
+    color: #2C3E50;
+    font-size: 20px;
+    font-weight: bolder;
+    outline: medium
+}
+
+#msform .fs-child-icon{
+	width:150px;
+}
+/*buttons*/
+
+.action-button {
+    font-family: Lato;
+    font-size: 20px;
+    width: 92%;
+    background: #74BF5D;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 50px;
+    cursor: pointer;
+    padding: 15px;
+    margin: 50px 5px 0 5px;
+}
+#msform .first {
+    margin-top: 65px;
+}
+#msform .second {
+    margin-top: 85px;
+}
+#msform .three {
+    margin-top: 50px;
+}
+#msform .four {
+    margin-top: 65px;
+}
+#msform .five {
+    margin-top: 20px;
+}
+#msform .six {
+    margin-top: 20px;
+}
+#msform .seven {
+    margin-top: 0px;
+}
+#msform .action-button:hover, #msform .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+}
+/*headings*/
+
+.fs-title {
+    font-family: LatoLight;
+    font-size: 34px;
+    color: #3593B7;
+}
+.fs-subtitle {
+    font-family: LatoLight;
+    font-weight: normal;
+    font-size: 27px;
+    color: #9B9B9B;
+    margin: 20px 0 100px 0;
+}
+.fs-skymaster{
+	font-family: LatoLight;
+    font-weight: normal;
+    font-size: 27px;
+    color: #9B9B9B;
+    margin-top: 40px;
+    font-weight: bold;
+}
+.fs-icon {
+    background: url('../images/2_002.jpg') no-repeat;
+    height: 150px;
+    border-radius: 100px;
+    width:150px;
+    font-family: Lato;
+    color: #FFF;
+    background-position: center;
+    line-height: 150px;
+    overflow: hidden;
+    margin: 15px 0 20px 36%;
+    position: relative;
+}
+.fs-icon input {
+    overflow: hidden;
+    font-size: 300px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+}
+#msform input[type=file] {
+    height: 150px;
+}
+.fs-headset {
+    background: url('../images/setup_your_headset.png') no-repeat;
+    height: 370px;
+    background-position: center;
+    margin: 50px 0 40px 0;
+}
+.fs-model {
+    background: url('../images/put_in_pairing_mode.png') no-repeat;
+    height: 370px;
+    margin-top: 10px;
+    background-position: center;
+    margin-bottom: 35px;
+}
+.fs-tooth {
+    background: url('../images/icon_settings.png') no-repeat;
+    height: 118px;
+    margin-top: 50px;
+    background-position: center;
+    margin-bottom: 60px;
+}
+.fs-brainwave {
+    background: url('../images/brainwaves.png') no-repeat;
+    height: 321px;
+    margin-top: 10px;
+    background-position: center;
+    margin-bottom: 10px;
+}
+.fs-application {
+    background: url('../images/icon_skymaster.png') no-repeat;
+    height: 175px;
+    margin-top: 90px;
+    background-position: center;
+    margin-bottom: 125px;
+}
+.headset-info {
+    font-family: LatoRegular;
+    font-size: 30px;
+    color: #727072;
+}
+#msform .brain_indication {
+    height: 86px;
+}
+.headset-info .two {
+    padding-left: 50px;
+    text-align: -webkit-auto;
+}
+.headset-info .attention {
+    float: left;
+    margin-left: 100px;
+}
+.headset-info .meditation {
+    float: right;
+    margin-right: 100px;
+}
+.headset-info .indication_bg {
+    height: 62px;
+    width: 61px;
+    margin-left: 30px;
+    background-position: center;
+}
+.headset-info .indication_text {
+    font-family: Lato;
+    font-size: 20px;
+    color: #74BF5D;
+}
+.attention .indication_bg {
+    background: url('../images/indicator_level_3.png') no-repeat;
+}
+.meditation .indication_bg {
+    background: url('../images/indicator_level_3.png') no-repeat;
+}
+.tooth_guide {
+    margin-top: 15px;
+}
+.bluetooth-help {
+    text-align: -webkit-auto;
+}
+.first_bg {
+    background: url('../images/setup_step_1.png') no-repeat;
+    height: 29px;
+    background-position: center;
+    margin-bottom: 45px:
+}
+.second_bg {
+    background: url('../images/setup_step_2.png') no-repeat;
+    height: 29px;
+    background-position: center;
+    margin-bottom: 45px:
+}
+.third_bg {
+    background: url('../images/setup_step_3.png') no-repeat;
+    height: 29px;
+    background-position: center;
+    margin-bottom: 45px:
+}
+.help_content {
+    font-family: Lato;
+    font-size: 22px;
+    color: #3593B7;
+    margin-top: 60px;
+    text-transform: uppercase;
+}
+.headset_help {
+    margin-top: 50px;
+}
+.application_help{
+	margin:20px 0 85px 0;
+}
+/*progressbar*/
+
+.progressbar {
+    width: 400px;
+    padding-left: 120px;
+    margin-bottom: 40px;
+    overflow: hidden;
+    counter-reset: step;
+}
+.progressbar li {
+    list-style-type: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: 9px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+}
+.progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 20px;
+    line-height: 20px;
+    display: block;
+    font-size: 10px;
+    background: white;
+    border-radius: 12px;
+    margin: 0 auto 5px auto;
+    border-style: solid;
+    border-color: #C8C8C8;
+    border-width: 1px;
+}
+/*progressbar connectors*/
+
+.progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: white;
+    position: absolute;
+    left: -50%;
+    top: 9px;
+    z-index: -1;
+    /*put it behind the numbers*/
+}
+.progressbar li:first-child:after {
+    /*connector not needed before the first step*/
+    
+    content: none;
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+
+.progressbar li.active:before, .progressbar li.active:after {
+    background: #74BF5D;
+    color: #74BF5D;
+}
+.progressbar_title {
+    width: 560px;
+    padding-right: 40px;
+    padding-left: 40px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding-top: 815px;
+    counter-reset: step;
+}
+.progressbar_title li {
+    font-family: Lato;
+    list-style-type: none;
+    color: #C8C8C8;
+    text-transform: uppercase;
+    font-size: 16px;
+    width: 33.33%;
+    float: left;
+}
+.progressbar_title .active {
+    color: #74BF5D;
+}
+.control-group.error .help-inline {
+    color: #b94a48;
+}
+.control-group .gender_text {
+    font-family: LatoLight;
+    color: #9B9B9B;
+    font-size: 20px;
+    padding-left: 45px;
+    text-align: left;
+    margin-top: 20px;
+    font-weight: bolder;
+}
+.gender_selector #gender {
+    width: 80%;
+    font-family: LatoLight;
+    color: #9B9B9B;
+    font-size: 20px;
+    padding-right: 50px;
+    text-align: left
+}
+.control-group .gender_content {
+    float: left;
+}
+/*  checkbox  */
+
+.checkboxThree {
+    width: 280px;
+    height: 73px;
+    background: #FFF;
+    border-radius: 50px;
+    position: relative;
+    border: 1px solid #ccc;
+    margin-left: 137px;
+}
+/**
+ * Create the text for the On position
+ */
+
+.checkboxThree:before {
+    font-family: Lato;
+    content: 'GIRL';
+    position: absolute;
+    top: 28.5px;
+    left: 56px;
+    height: 2px;
+    color: #9B9B9B;
+    font-size: 20px;
+    z-index: 2;
+}
+.check-gender-female:before {
+    color: white;
+}
+/**
+ * Create the label for the off position
+ */
+
+.checkboxThree:after {
+    content: 'BOY';
+    position: absolute;
+    top: 28.5px;
+    left: 186px;
+    height: 2px;
+    color: #9B9B9B;
+    font-size: 20px;
+    font-family: Lato;
+    z-index: 2;
+}
+.check-gender-male:after {
+    color: white;
+}
+.checkboxThree label {
+    display: block;
+    width: 127px;
+    height: 57px;
+    border-radius: 50px;
+    padding: 2px;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+    cursor: pointer;
+    position: absolute;
+    top: 7px;
+    z-index: 1;
+    left: 10px;
+    background: #53B7BF;
+}
+/**
+ * Create the checkbox event for the label
+ */
+
+.checkboxThree input[type=checkbox]:checked + label {
+    left: 140px;
+    background: #53B7BF;
+}
+.checkboxThree input[type=checkbox]:checked +::before {
+    color: white;
+}
+#checkboxThreeInput {
+    display: none;
+}
+.add_child_info {
+    font-family: LatoRegular;
+    font-size: 16px;
+    margin-top: 15px;
+    text-transform: uppercase;
+    color: #727072;
+    font-weight: bolder;
+}

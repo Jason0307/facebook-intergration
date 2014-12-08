@@ -15,10 +15,13 @@
  */
 package org.springframework.social.quickstart.user;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionData;
 import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.web.context.request.NativeWebRequest;
 
@@ -34,9 +37,17 @@ public final class SimpleSignInAdapter implements SignInAdapter {
 	private final UserCookieGenerator userCookieGenerator = new UserCookieGenerator();
 	
 	public String signIn(String userId, Connection<?> connection, NativeWebRequest request) {
+		ConnectionData cData = connection.createData();
+		System.out.println("Access Token : " + cData.getAccessToken());
+		System.out.println("Refresh Token : " + cData.getRefreshToken());
+		System.out.println("Expired : " + cData.getExpireTime());
 		SecurityContext.setCurrentUser(new User(userId));
 		userCookieGenerator.addCookie(userId, request.getNativeResponse(HttpServletResponse.class));
 		return null;
 	}
 
+	public static void main(String[] args) {
+		Date date = new Date(1418892047612L);
+		System.out.println(date);
+	}
 }

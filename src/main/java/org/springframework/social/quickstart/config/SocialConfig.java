@@ -82,7 +82,6 @@ public class SocialConfig {
 	@Scope(value="request", proxyMode=ScopedProxyMode.INTERFACES)
 	public ConnectionRepository connectionRepository() {
 	    User user = SecurityContext.getCurrentUser();
-	    System.out.println("============== User : " + user);
 	    return usersConnectionRepository().createConnectionRepository(user.getId());
 	}
 

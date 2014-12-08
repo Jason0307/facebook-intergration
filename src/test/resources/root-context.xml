@@ -9,12 +9,6 @@
 	<!-- Enable @Annotation-drive bean configuration -->
 	<context:annotation-config />
 	<context:component-scan base-package="org.springframework.social.quickstart"/>
-	<!-- Configures External Property Resolution -->
-	<import resource="properties.xml" />
-
-	<!-- Configures Shared Data Access Resources -->
-	<import resource="data.xml" />
-
 	<!-- Configures Spring Social -->
 	<bean class="org.springframework.social.quickstart.config.SocialConfig" />
 

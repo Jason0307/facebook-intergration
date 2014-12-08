@@ -40,6 +40,10 @@ public final class UserInterceptor extends HandlerInterceptorAdapter {
 	}
 	
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+		String requestUrl = request.getRequestURI();
+		if(requestUrl.contains("resources") || requestUrl.contains("friends")){
+			return true;
+		}
 		rememberUser(request, response);
 		handleSignOut(request, response);			
 		if (SecurityContext.userSignedIn() || requestForSignIn(request)) {

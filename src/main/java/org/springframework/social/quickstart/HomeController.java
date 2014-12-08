@@ -15,22 +15,30 @@
  */
 package org.springframework.social.quickstart;
 
-import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FacebookProfile;
+import org.springframework.social.facebook.api.Post;
 import org.springframework.social.facebook.api.Reference;
+import org.springframework.social.quickstart.entity.FriendDetailVo;
+import org.springframework.social.quickstart.service.TokenService;
+import org.springframework.social.quickstart.util.PropertiesUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 
@@ -43,18 +51,21 @@ import com.alibaba.fastjson.JSON;
  */
 @Controller
 public class HomeController {
-
-	private final Facebook facebook;
-
+	private Facebook facebook;
+	private TokenService tokenService;
+	
 	@Inject
 	public HomeController(Facebook facebook) {
 		this.facebook = facebook;
 	}
 
+	public void setTokenService(TokenService tokenService) {
+		this.tokenService = tokenService;
+	}
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-		System.out.println("username : "
-				+ facebook.userOperations().getUserProfile().getUsername());
+	public String home(Model model) throws Exception {
+		System.out.println("facebook : " + facebook);
 		System.out.println("email : "
 				+ facebook.userOperations().getUserProfile().getEmail());
 		System.out.println("fName : "
@@ -67,42 +78,81 @@ public class HomeController {
 		List<Reference> friends = facebook.friendOperations().getFriends();
 		System.out.println("friends sizes : "
 				+ facebook.friendOperations().getFriendLists().size());
-		for(Reference reference : facebook.friendOperations().getFriendLists()){
+		for (Reference reference : facebook.friendOperations().getFriendLists()) {
 			System.out.println("Reference : " + JSON.toJSONString(reference));
 		}
 		System.out.println("friends size : " + friends.size());
 		FacebookProfile profile = facebook.userOperations().getUserProfile();
 		ObjectMapper objectMapper = new ObjectMapper();
-		try {
-			System.out.println("Profile info :"
-					+ objectMapper.writeValueAsString(profile));
-		} catch (JsonGenerationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		System.out.println("Profile info :"
+				+ objectMapper.writeValueAsString(profile));
 		for (Reference friend : friends) {
 			System.out.println("friend : " + friend.getName());
-			FacebookProfile fProfile = facebook.userOperations().getUserProfile(friend.getId());
+			FacebookProfile fProfile = facebook.userOperations()
+					.getUserProfile(friend.getId());
 			System.out.println(JSON.toJSONString(fProfile));
-			//facebook.feedOperations().post(friend.getId(), "What's your name?");
+			// facebook.feedOperations().post(friend.getId(),
+			// "What's your name?");
 		}
-		
+		List<Post> posts = facebook.feedOperations().getFeed(profile.getId());
+		for (Post post : posts) {
+			System.out.println("Profile info :"
+					+ objectMapper.writeValueAsString(post));
+		}
 		System.out.println("==============================");
-		facebook.feedOperations().post(profile.getId(), "What's your name?");
+		System.out.println(tokenService);
+		/*String appId = PropertiesUtil.getInstance().getAppId();
+		String accessToken = tokenService.getAccessToken(appId);
+		FriendDetailVo friendDetailVo = facebook
+				.restOperations()
+				.getForObject(
+						"https://graph.facebook.com/v2.2/me/taggable_friends?accessToken={accessToken}",
+						FriendDetailVo.class, accessToken);
+		System.out.println("Friends : " + friendDetailVo);*/
 		model.addAttribute("friends", friends);
 		return "home";
 	}
+
+	@RequestMapping(value = "/friends", method = RequestMethod.GET)
+	public @ResponseBody FriendDetailVo listFacebookFriends() throws Exception {
+		String appId = PropertiesUtil.getInstance().getAppId();
+		String accessToken = tokenService.getAccessToken(appId);
+		HttpGet httpGet = new HttpGet(
+				"https://graph.facebook.com/v2.2/me/taggable_friends?access_token="
+						+ accessToken);
+		HttpResponse response = new DefaultHttpClient().execute(httpGet);
+		String result = "";
+		FriendDetailVo detailVo = new FriendDetailVo();
+		if (response.getStatusLine().getStatusCode() == 200) {
+			HttpEntity entity = response.getEntity();
+			result = EntityUtils.toString(entity);
+			System.out.println(result);
+			detailVo = new ObjectMapper().readValue(result,
+					FriendDetailVo.class);
+		}
+		System.out.println("response : " + detailVo);
+		return detailVo;
+	}
 	
-	public static void main(String[] args) {
-		
-		Date date = new Date(1416816000000L);
-		System.out.println(date);
+	@RequestMapping(value = "/access_token", method = RequestMethod.GET)
+	public @ResponseBody FriendDetailVo getAccessToken() throws Exception {
+		HttpGet httpGet = new HttpGet(
+				"https://www.facebook.com/dialog/oauth");
+		HttpParams httpParams = new BasicHttpParams();
+		httpParams.setParameter("client_id", PropertiesUtil.getInstance().getAppId());
+		httpParams.setParameter("redirect_uri", PropertiesUtil.getInstance().getRedirectUrl());
+		httpParams.setParameter("display", PropertiesUtil.getInstance().getDisplay());
+		httpParams.setParameter("response_type", PropertiesUtil.getInstance().getResponseType());
+		httpGet.setParams(httpParams);
+		HttpResponse response = new DefaultHttpClient().execute(httpGet);
+		String result = "";
+		if (response.getStatusLine().getStatusCode() == 200) {
+			
+			HttpEntity entity = response.getEntity();
+			result = EntityUtils.toString(entity);
+			System.out.println(result);
+		}
+		return null;
 	}
 
 }
